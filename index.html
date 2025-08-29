@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday / Joyeux Anniversaire!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Pantalla inicial con el contador -->
+        <div id="countdown-screen">
+            <h1>The surprise is coming / La surprise arrive!</h1>
+            <div id="countdown">
+                <div>
+                    <span id="hours">00</span>
+                    <span>Hours / Heures</span>
+                </div>
+                <div>
+                    <span id="minutes">00</span>
+                    <span>Minutes</span>
+                </div>
+                <div>
+                    <span id="seconds">00</span>
+                    <span>Seconds / Secondes</span>
+                </div>
+            </div>
+            <p>Magic will start at 05:00 AM</p>
+        </div>
+
+        <!-- Pantalla de la explosión/sorpresa (oculta al principio) -->
+        <div id="surprise-screen" class="hidden">
+            <h1>SURPRISE! HAPPY BIRTHDAY!<br>JOYEUX ANNIVERSAIRE! 🎉</h1>
+            <p class="property-notice">This is the official property of the birthday boy. 🏆<br>Ceci est la propriété
+                officielle du célébrant. </p>
+
+            <!-- El iframe con el video de Drive -->
+            <div class="video-container">
+                <iframe id="birthday-video" src="" frameborder="0" allow="autoplay; encrypted-media"
+                    allowfullscreen></iframe>
+            </div>
+
+            <!-- NUEVA SECCIÓN: Su Deporte Favorito -->
+            <div class="sports-section">
+                <h2>To the MVP of my life! 🏀⚽🎾</h2>
+                <p>Every day with you is a victory. I love you!<br>Chaque jour avec toi est une victoire. Je t'aime !
+                </p>
+                <!-- Puedes poner una imagen relacionada con su deporte favorito aquí -->
+                <!-- <img src="images/sports-image.jpg" alt="His favorite sport"> -->
+            </div>
+
+            <button onclick="replay()">Watch again / Voir à nouveau</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

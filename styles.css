@@ -1,0 +1,150 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* height: 100vh; */ /* <- Esta línea puede causar problemas, puedes comentarla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0a0a2a, #000080);
+    color: #ffffff;
+    text-align: center;
+    overflow: auto; /* Cambia "hidden" por "auto" para permitir scroll */
+}
+
+.container {
+    position: relative;
+    width: 100%; /* Asegura que ocupe el ancho completo */
+    min-height: 100vh; /* Hace que el contenedor tenga al menos la altura de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center;
+    padding: 20px; /* Añade un poco de espacio alrededor en dispositivos móviles */
+    box-sizing: border-box; /* Asegura que el padding no desborde el ancho */
+}
+
+
+#countdown-screen h1, #surprise-screen h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #FFD700; /* Dorado para elegancia */
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+#countdown div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#countdown span:first-child {
+    font-size: 3rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 1rem;
+    border-radius: 10px;
+    min-width: 80px;
+    color: #FFD700; /* Dorado */
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+#countdown span:last-child {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #c0c0c0;
+}
+
+/* Estilo para la pantalla de sorpresa inicialmente oculta */
+.hidden {
+    display: none !important;
+}
+
+/* Contenedor del video */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    border: 2px solid #FFD700;
+}
+
+/* El iframe del video debe ocupar todo el contenedor */
+#birthday-video {
+    width: 100%;
+    height: 405px; /* 720p aspect ratio */
+    border: none;
+}
+
+/* Estilos para la animación de "explosión" */
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes reveal {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.explode {
+    animation: explode 0.8s ease-in forwards;
+}
+
+.reveal {
+    animation: reveal 1s ease-out forwards;
+}
+
+/* NUEVOS ESTILOS: Sección de deportes y avisos */
+.sports-section {
+    background: rgba(0, 0, 128, 0.3); /* Fondo azul marino semitransparente */
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem auto;
+    max-width: 600px;
+    border: 1px solid #FFD700;
+}
+
+.sports-section h2 {
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+.property-notice {
+    font-style: italic;
+    color: #c0c0c0;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+button {
+    background-color: #000080; /* Azul marino */
+    color: #FFD700; /* Dorado */
+    border: 2px solid #FFD700;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 1.5rem;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #FFD700;
+    color: #000080;
+    transform: scale(1.05);
+}
