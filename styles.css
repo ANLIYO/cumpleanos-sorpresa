@@ -1,26 +1,49 @@
+/* Estilos para el body */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* Eliminamos flexbox del body. El body solo será el fondo */
     background: linear-gradient(to right, #0a0a2a, #000080);
     color: #ffffff;
-    text-align: center;
-    overflow: auto; 
+    text-align: center; /* Centra el texto */
+    overflow-x: hidden; /* Esto es correcto, evita el scroll horizontal */
+    width: 100%;
+    min-height: 100vh;
 }
 
 .container {
-    position: relative;
-    width: 100%; 
-    min-height: 100vh; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center;
-    padding: 20px; 
-    box-sizing: border-box; 
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.message-section, .video-section, .letter-section, .chess-section {
+    background: rgba(0, 0, 128, 0.3);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem auto;
+    width: 95%; /* Porcentaje para que se adapte al ancho de la pantalla */
+    max-width: 800px; /* Ancho máximo para pantallas grandes */
+    border: 1px solid #FFD700;
+    opacity: 0;
+    box-sizing: border-box; /* Fundamental para que el padding no cause desbordamiento */
+}
+
+/* Estilos para el tablero de ajedrez */
+
+
+/* Estilos para las fotos */
+.birthday-photo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    border: 2px solid #FFD700;
+    margin: 0 auto;
+    display: block;
 }
 
 
@@ -143,7 +166,6 @@ button:hover {
     color: #000080;
     transform: scale(1.05);
 }
-/* ANIMACIÓN DE EXPLOSIÓN DE TEXTO */
 @keyframes textExplosion {
     0% { 
         transform: scale(0); 
@@ -312,17 +334,76 @@ button:hover {
     animation-duration: 3.8s;
     animation-delay: 0.5s;
 }
-/* Estilos para las nuevas secciones */
-.message-section, .video-section, .letter-section, .chess-section {
+.letter-section {
     background: rgba(0, 0, 128, 0.3);
     padding: 1.5rem;
     border-radius: 15px;
     margin: 2rem auto;
+    width: 95%;
     max-width: 800px;
     border: 1px solid #FFD700;
     opacity: 0;
+    box-sizing: border-box;
 }
 
+.letter-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #FFD700;
+    text-align: justify;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+}
+
+@media (max-width: 768px) {
+    .letter-section {
+        padding: 1rem;
+        margin: 1.5rem auto;
+        width: 90%;
+    }
+    
+    .letter-content {
+        padding: 1rem;
+        text-align: left; 
+        hyphens: auto;
+        -webkit-hyphens: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .letter-section {
+        padding: 0.8rem;
+        margin: 1rem auto;
+        width: 95%;
+    }
+    
+    .letter-content {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .letter-content p {
+        margin-bottom: 1rem; 
+    }
+}
+
+.letter-content {
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.letter-content p {
+    margin-bottom: 1.2rem;
+}
+
+.letter-content {
+    word-break: break-word;
+}
 .message-section h2, .video-section h2, .letter-section h2, .chess-section h2 {
     color: #FFD700;
     margin-bottom: 1rem;
@@ -350,16 +431,6 @@ button:hover {
     text-align: justify;
 }
 
-/* Estilos para el tablero de ajedrez */
-#chessboard {
-    width: 400px;
-    height: 400px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(8, 1fr);
-    border: 2px solid #FFD700;
-}
 
 .chess-square {
     display: flex;
@@ -415,15 +486,7 @@ button:hover {
         height: 250px !important;
     }
 }
-#chessboard {
-  display: grid;
-  grid-template-columns: repeat(8, 60px);
-  grid-template-rows: repeat(8, 60px);
-  border: 3px solid gold;
-  margin: 20px auto;
-  width: fit-content;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-}
+
 
 .chess-square {
   width: 60px;
@@ -447,26 +510,9 @@ button:hover {
   cursor: grab;
   user-select: none;
 }
-#chessboard {
-  display: grid;
-  grid-template-columns: repeat(8, 60px);
-  grid-template-rows: repeat(8, 60px);
-  border: 3px solid gold;
-  margin: 20px auto;
-  width: fit-content;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-}
 
-/* 📌 AJEDREZ */
-#chessboard {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  aspect-ratio: 1 / 1; /* mantiene cuadrado */
-  max-width: 90vw; /* se adapta al ancho disponible */
-  margin: 20px auto;
-  border: 3px solid gold;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-}
+
+
 
 .chess-square {
   display: flex;
@@ -496,18 +542,24 @@ button:hover {
   border: none;
 }
 
-/* 📌 CARTA */
 .letter-section {
-  width: 100%;
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  border: 1px solid #FFD700;
-  text-align: justify;
-  font-size: clamp(14px, 2.5vw, 18px); /* escala con pantalla */
-  line-height: 1.6;
+    background: rgba(0, 0, 128, 0.3);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem auto;
+    width: 95%; /* Asegura que la sección de la carta ocupe un 95% del ancho de la pantalla */
+    max-width: 800px;
+    border: 1px solid #FFD700;
+    opacity: 0;
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+}
+
+.letter-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #FFD700;
+    text-align: justify;
 }
 
 /* 📱 Ajustes móviles */
@@ -525,16 +577,7 @@ button:hover {
   }
 }
 /* ESTILOS PARA AJEDREZ RESPONSIVO Y CENTRADO */
-#chessboard {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    width: 100%;
-    max-width: 500px;
-    margin: 20px auto;
-    border: 3px solid gold;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-    aspect-ratio: 1 / 1;
-}
+
 
 .chess-square {
     display: flex;
@@ -581,10 +624,10 @@ button:hover {
 
 /* MEDIA QUERIES PARA RESPONSIVIDAD */
 @media (max-width: 768px) {
+    
     #chessboard {
-        max-width: 90vw;
-        margin: 15px auto;
-    }
+    max-width: 90vw;
+    margin: 15px auto;}
     
     .chess-square {
         font-size: clamp(14px, 3.5vw, 24px);
@@ -597,8 +640,8 @@ button:hover {
 
 @media (max-width: 480px) {
     #chessboard {
-        max-width: 95vw;
-    }
+    max-width: 90vw;
+    margin: 15px auto;}
     
     .chess-square {
         font-size: clamp(12px, 3vw, 18px);
@@ -610,14 +653,7 @@ button:hover {
 }
 
 /* CENTRADO DE ELEMENTOS EN SECCIONES */
-.message-section, .video-section, .letter-section, .chess-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    text-align: center;
-}
+
 
 .message-section > *, .video-section > *, .letter-section > *, .chess-section > * {
     width: 100%;
@@ -671,19 +707,8 @@ body {
     width: 100%; /* Asegura que el body no se desborde */
 }
 
-.container {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
 
-/* --- ESTILOS GENERALES Y ANIMACIONES --- */
+
 #countdown-screen h1, #surprise-screen h1 {
     font-size: clamp(1.8rem, 5vw, 2.5rem); /* Tamaño de fuente responsivo */
     margin-bottom: 2rem;
@@ -708,18 +733,6 @@ body {
     display: none !important;
 }
 
-/* --- SECCIONES DE CONTENIDO (VIDEOS, CARTAS, FOTOS) --- */
-.message-section, .video-section, .letter-section, .chess-section {
-    background: rgba(0, 0, 128, 0.3);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin: 2rem auto;
-    width: 95%; /* Usa porcentaje para que se adapte al ancho de la pantalla */
-    max-width: 800px; /* Limita el ancho en pantallas grandes */
-    border: 1px solid #FFD700;
-    opacity: 0;
-    box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
-}
 
 .message-section h2, .video-section h2, .letter-section h2, .chess-section h2 {
     color: #FFD700;
@@ -729,19 +742,13 @@ body {
 .birthday-photo {
     width: 100%;
     max-width: 400px;
-    height: auto; /* Mantiene la proporción */
+    height: auto;
     border-radius: 10px;
     border: 2px solid #FFD700;
+    margin: 0 auto; /* Asegúrate de que las fotos también se centren */
+    display: block; /* `display: block` ayuda a que `margin: auto` funcione */
 }
 
-.letter-content {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
-    border-radius: 10px;
-    border: 1px solid #FFD700;
-    text-align: justify;
-    word-wrap: break-word; /* Rompe palabras largas para evitar desbordamiento */
-}
 
 /* --- AJUSTES ESPECÍFICOS PARA VIDEOS --- */
 .video-section .video-container {
@@ -761,24 +768,25 @@ body {
     border: none;
 }
 
-/* --- AJUSTES ESPECÍFICOS PARA AJEDREZ --- */
+/* ESTILOS PARA AJEDREZ RESPONSIVO - VERSIÓN CORREGIDA */
 #chessboard {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    width: 100%;
+    width: 90vmin; /* Usa vmin para que se base en la dimensión más pequeña */
     max-width: 500px;
     margin: 20px auto;
     border: 3px solid gold;
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1; /* Mantiene la proporción cuadrada */
 }
 
 .chess-square {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(16px, 4vw, 34px); /* Tamaño de fuente responsivo */
+    font-size: calc(12px + 2vmin); /* Tamaño de fuente que escala con la pantalla */
     font-weight: bold;
+    aspect-ratio: 1 / 1; /* Asegura que las casillas sean cuadradas */
 }
 
 .chess-square.white {
@@ -787,4 +795,63 @@ body {
 
 .chess-square.black {
     background-color: #b58863;
+}
+
+.chess-piece {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    height: 70%;
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: grab;
+}
+
+/* MEDIA QUERIES ESPECÍFICAS PARA AJEDREZ */
+@media (max-width: 768px) {
+    #chessboard {
+        width: 85vmin;
+        max-width: 400px;
+    }
+    
+    .chess-square {
+        font-size: calc(10px + 2vmin);
+    }
+}
+
+@media (max-width: 480px) {
+    #chessboard {
+        width: 80vmin;
+        max-width: 300px;
+    }
+    
+    .chess-square {
+        font-size: calc(8px + 2vmin);
+    }
+    
+    .chess-piece {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+/* MEDIA QUERY PARA PANTALLAS MUY PEQUEÑAS */
+@media (max-width: 320px) {
+    #chessboard {
+        width: 95vw; /* En pantallas muy pequeñas, usa el ancho completo */
+        max-width: 280px;
+    }
+    
+    .chess-section {
+        padding: 0.8rem;
+    }
+    
+    .chess-section h2 {
+        font-size: 1.2rem;
+    }
+    
+    .chess-section p {
+        font-size: 0.9rem;
+    }
 }

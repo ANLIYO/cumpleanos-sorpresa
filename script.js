@@ -7,7 +7,7 @@ const minutesElement = document.getElementById("minutes");
 const secondsElement = document.getElementById("seconds");
 const videoElement = document.getElementById("birthday-video");
 
-const targetTime = new Date(2025, 7, 30, 5, 0, 0);
+const targetTime = new Date(2025, 7, 30, 2, 48, 0);
 const SURPRISE_ACTIVATED_KEY = "surpriseActivated";
 
 let countdownInterval;
@@ -58,7 +58,8 @@ function updateCountdown() {
 function triggerSurprise() {
   localStorage.setItem(SURPRISE_ACTIVATED_KEY, "true");
 
-  createExplosion();
+  // Reemplaza la antigua función de explosión por esta
+  launchConfetti();
 
   countdownScreen.classList.add("explode");
 
@@ -71,91 +72,73 @@ function triggerSurprise() {
   }, 800);
 }
 
-function createExplosion() {
-  const explosion = document.createElement("div");
-  explosion.style.position = "fixed";
-  explosion.style.left = "50%";
-  explosion.style.top = "50%";
-  explosion.style.transform = "translate(-50%, -50%)";
-  explosion.style.pointerEvents = "none";
-  explosion.style.zIndex = "9999";
-  document.body.appendChild(explosion);
+function launchConfetti() {
+  const defaults = {
+    startVelocity: 30,
+    spread: 360,
+    ticks: 60,
+    zIndex: 1000,
+    shapes: ["square", "circle", "star"],
+    scalar: 1.5,
+  };
 
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement("div");
-    particle.className = "explosion-piece";
-
-    const colors = ["#FFD700", "#000080", "#e94560", "#ffffff"];
-    particle.style.background =
-      colors[Math.floor(Math.random() * colors.length)];
-
-    const angle = Math.random() * Math.PI * 2;
-    particle.style.setProperty("--tx", Math.cos(angle) * 3);
-    particle.style.setProperty("--ty", Math.sin(angle) * 3);
-
-    const size = 8 + Math.random() * 15;
-    particle.style.width = size + "px";
-    particle.style.height = size + "px";
-
-    explosion.appendChild(particle);
+  function fire(particleRatio, opts) {
+    confetti(
+      Object.assign({}, defaults, opts, {
+        particleCount: Math.floor(250 * particleRatio),
+      })
+    );
   }
 
-  setTimeout(() => {
-    explosion.remove();
-  }, 2000);
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+
+  fire(0.2, {
+    spread: 60,
+  });
+
+  fire(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8,
+  });
+
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2,
+  });
+
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
 }
 
 function revealSurpriseScreen() {
   surpriseScreen.classList.remove("hidden");
 
-  const title = surpriseScreen.querySelector("h1");
-  const notice = surpriseScreen.querySelector(".property-notice");
-  const videoContainer = surpriseScreen.querySelector(".video-container");
-  const sportsSection = surpriseScreen.querySelector(".sports-section");
-  const button = surpriseScreen.querySelector("button");
-
-  setTimeout(() => {
-    title.classList.add("exploding-text");
-    title.style.opacity = "1";
-  }, 200);
-
-  setTimeout(() => {
-    notice.classList.add("fade-in-up");
-    notice.style.opacity = "1";
-  }, 800);
-
-  setTimeout(() => {
-    videoContainer.classList.add("fade-in-up");
-    videoContainer.style.opacity = "1";
-  }, 1200);
-
-  setTimeout(() => {
-    sportsSection.classList.add("fade-in-up", "floating-element");
-    sportsSection.style.opacity = "1";
-  }, 1600);
-
-  setTimeout(() => {
-    button.classList.add("fade-in-up", "shimmer-effect");
-    button.style.opacity = "1";
-
-    initializeChess();
-    launchConfetti();
-  }, 2000);
+  const sections = surpriseScreen.querySelectorAll(
+    ".message-section, .video-section, .letter-section, .chess-section, button"
+  );
+  sections.forEach((section, index) => {
+    setTimeout(() => {
+      section.style.opacity = "1";
+      section.style.animationName = "fadeInUp";
+    }, 500 * index + 1000);
+  });
 }
 
 function showSurpriseDirectly() {
   countdownScreen.classList.add("hidden");
   videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
-  revealSurpriseScreen();
+  surpriseScreen.classList.remove("hidden");
   initializeChess();
+  launchConfetti();
 }
-
-// function showSurpriseDirectly() {
-//   countdownScreen.classList.add("hidden");
-//   videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
-//   surpriseScreen.classList.remove("hidden");
-//   initializeChess();
-// }
 
 function replay() {
   localStorage.removeItem(SURPRISE_ACTIVATED_KEY);
