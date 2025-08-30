@@ -7,7 +7,7 @@ const minutesElement = document.getElementById("minutes");
 const secondsElement = document.getElementById("seconds");
 const videoElement = document.getElementById("birthday-video");
 
-const targetTime = new Date(2025, 7, 30, 2, 48, 0);
+const targetTime = new Date(2025, 7, 30, 2, 51, 0);
 const SURPRISE_ACTIVATED_KEY = "surpriseActivated";
 
 let countdownInterval;
