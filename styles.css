@@ -2,33 +2,32 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* height: 100vh; */ /* <- Esta línea puede causar problemas, puedes comentarla */
     display: flex;
     justify-content: center;
     align-items: center;
     background: linear-gradient(to right, #0a0a2a, #000080);
     color: #ffffff;
     text-align: center;
-    overflow: auto; /* Cambia "hidden" por "auto" para permitir scroll */
+    overflow: auto; 
 }
 
 .container {
     position: relative;
-    width: 100%; /* Asegura que ocupe el ancho completo */
-    min-height: 100vh; /* Hace que el contenedor tenga al menos la altura de la pantalla */
+    width: 100%; 
+    min-height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
+    justify-content: center; 
     align-items: center;
-    padding: 20px; /* Añade un poco de espacio alrededor en dispositivos móviles */
-    box-sizing: border-box; /* Asegura que el padding no desborde el ancho */
+    padding: 20px; 
+    box-sizing: border-box; 
 }
 
 
 #countdown-screen h1, #surprise-screen h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
-    color: #FFD700; /* Dorado para elegancia */
+    color: #FFD700; 
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
@@ -53,7 +52,7 @@ body {
     padding: 1rem;
     border-radius: 10px;
     min-width: 80px;
-    color: #FFD700; /* Dorado */
+    color: #FFD700; 
     border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
@@ -63,12 +62,10 @@ body {
     color: #c0c0c0;
 }
 
-/* Estilo para la pantalla de sorpresa inicialmente oculta */
 .hidden {
     display: none !important;
 }
 
-/* Contenedor del video */
 .video-container {
     position: relative;
     width: 100%;
@@ -80,14 +77,13 @@ body {
     border: 2px solid #FFD700;
 }
 
-/* El iframe del video debe ocupar todo el contenedor */
 #birthday-video {
     width: 100%;
-    height: 405px; /* 720p aspect ratio */
+    height: 405px; 
     border: none;
 }
 
-/* Estilos para la animación de "explosión" */
+
 @keyframes explode {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.2); opacity: 0.7; }
@@ -108,9 +104,8 @@ body {
     animation: reveal 1s ease-out forwards;
 }
 
-/* NUEVOS ESTILOS: Sección de deportes y avisos */
 .sports-section {
-    background: rgba(0, 0, 128, 0.3); /* Fondo azul marino semitransparente */
+    background: rgba(0, 0, 128, 0.3);
     padding: 1.5rem;
     border-radius: 15px;
     margin: 2rem auto;
@@ -131,8 +126,8 @@ body {
 }
 
 button {
-    background-color: #000080; /* Azul marino */
-    color: #FFD700; /* Dorado */
+    background-color: #000080; 
+    color: #FFD700; 
     border: 2px solid #FFD700;
     padding: 1rem 2rem;
     font-size: 1rem;
@@ -147,4 +142,649 @@ button:hover {
     background-color: #FFD700;
     color: #000080;
     transform: scale(1.05);
+}
+/* ANIMACIÓN DE EXPLOSIÓN DE TEXTO */
+@keyframes textExplosion {
+    0% { 
+        transform: scale(0); 
+        opacity: 0; 
+        filter: blur(20px);
+    }
+    50% { 
+        transform: scale(1.2); 
+        opacity: 1; 
+        filter: blur(0);
+    }
+    100% { 
+        transform: scale(1); 
+        opacity: 1; 
+        filter: blur(0);
+    }
+}
+
+/* ANIMACIÓN DE FLOTACIÓN PARA ELEMENTOS */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ANIMACIÓN DE DESVANECIMIENTO ENTRADA */
+@keyframes fadeInUp {
+    from { 
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ANIMACIÓN DE BRILLO */
+@keyframes shimmer {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+    100% { filter: brightness(1); }
+}
+
+/* APLICA LAS ANIMACIONES A LOS ELEMENTOS */
+.exploding-text {
+    animation: textExplosion 1.5s ease-out forwards;
+}
+
+.floating-element {
+    animation: float 3s ease-in-out infinite;
+}
+
+.fade-in-up {
+    animation: fadeInUp 1.5s ease-out forwards;
+    opacity: 0;
+}
+
+.shimmer-effect {
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+/* CONFETI CONTAINER */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+}
+/* Confeti CSS puro - Sin librerías */
+.confeti-piece {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    opacity: 0;
+    animation: fall linear forwards;
+}
+
+/* Diferentes formas y colores de confeti */
+.confeti-piece:nth-child(1) { background: #FFD700; } /* Dorado */
+.confeti-piece:nth-child(2) { background: #000080; } /* Azul marino */
+.confeti-piece:nth-child(3) { background: #e94560; } /* Rojo */
+.confeti-piece:nth-child(4) { background: #ffffff; } /* Blanco */
+.confeti-piece:nth-child(5) { 
+    background: transparent;
+    border: 2px solid #FFD700;
+    border-radius: 50%;
+}
+
+/* Animación de caída con rotación y movimiento lateral */
+/* Animación de explosión */
+/* Animación de explosión PARA PARTÍCULAS - REEMPLAZA la existente */
+@keyframes explode-particle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: 
+      translate(
+        calc(var(--tx) * 100px), 
+        calc(var(--ty) * 100px)
+      ) 
+      scale(0) 
+      rotate(720deg);
+  }
+}
+/* Animación para el CONTADOR - CAMBIA el nombre */
+@keyframes countdown-explode {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.explode {
+  animation: countdown-explode 0.8s ease-in forwards; /* Usa el nuevo nombre */
+}
+
+.explosion-piece {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  opacity: 0;
+  border-radius: 50%;
+  animation: explode-particle 1.5s ease-out forwards;
+}
+
+.explosion-piece {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    opacity: 0;
+    border-radius: 50%;
+    animation: explode 1.5s ease-out forwards;
+}
+.confeti-piece:nth-child(1) {
+    left: 20%;
+    animation-duration: 3s;
+    animation-delay: 0.1s;
+}
+
+.confeti-piece:nth-child(2) {
+    left: 40%;
+    animation-duration: 4s;
+    animation-delay: 0.2s;
+}
+
+.confeti-piece:nth-child(3) {
+    left: 60%;
+    animation-duration: 3.5s;
+    animation-delay: 0.3s;
+}
+
+.confeti-piece:nth-child(4) {
+    left: 80%;
+    animation-duration: 4.2s;
+    animation-delay: 0.4s;
+}
+
+.confeti-piece:nth-child(5) {
+    left: 50%;
+    animation-duration: 3.8s;
+    animation-delay: 0.5s;
+}
+/* Estilos para las nuevas secciones */
+.message-section, .video-section, .letter-section, .chess-section {
+    background: rgba(0, 0, 128, 0.3);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem auto;
+    max-width: 800px;
+    border: 1px solid #FFD700;
+    opacity: 0;
+}
+
+.message-section h2, .video-section h2, .letter-section h2, .chess-section h2 {
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+.photo-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.birthday-photo {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    border: 2px solid #FFD700;
+}
+
+.letter-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #FFD700;
+    text-align: justify;
+}
+
+/* Estilos para el tablero de ajedrez */
+#chessboard {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    border: 2px solid #FFD700;
+}
+
+.chess-square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chess-square:hover {
+    transform: scale(1.05);
+}
+
+.chess-square.white {
+    background-color: #f0d9b5;
+}
+
+.chess-square.black {
+    background-color: #b58863;
+}
+
+.chess-piece {
+    width: 80%;
+    height: 80%;
+}
+/* Estilos específicos para la sección del video del hermano */
+.video-section .video-container {
+    max-width: 800px !important;
+    margin: 2rem auto;
+}
+
+.video-section .video-container iframe {
+    height: 450px !important;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 3px solid #FFD700;
+}
+
+/* Ajustes responsivos para el video */
+@media (max-width: 900px) {
+    .video-section .video-container {
+        max-width: 90% !important;
+    }
+    
+    .video-section .video-container iframe {
+        height: 350px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .video-section .video-container iframe {
+        height: 250px !important;
+    }
+}
+#chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 60px);
+  grid-template-rows: repeat(8, 60px);
+  border: 3px solid gold;
+  margin: 20px auto;
+  width: fit-content;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.chess-square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.chess-square.white {
+  background: #f0d9b5;
+}
+
+.chess-square.black {
+  background: #b58863;
+}
+
+.chess-piece {
+  cursor: grab;
+  user-select: none;
+}
+#chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 60px);
+  grid-template-rows: repeat(8, 60px);
+  border: 3px solid gold;
+  margin: 20px auto;
+  width: fit-content;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+/* 📌 AJEDREZ */
+#chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  aspect-ratio: 1 / 1; /* mantiene cuadrado */
+  max-width: 90vw; /* se adapta al ancho disponible */
+  margin: 20px auto;
+  border: 3px solid gold;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.chess-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(16px, 5vw, 34px); /* escala en móvil */
+  font-weight: bold;
+}
+
+.chess-square.white { background: #f0d9b5; }
+.chess-square.black { background: #b58863; }
+
+/* 📌 VIDEOS */
+.video-section .video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 3px solid #FFD700;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.video-section .video-container iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* mantiene proporción */
+  border: none;
+}
+
+/* 📌 CARTA */
+.letter-section {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  border: 1px solid #FFD700;
+  text-align: justify;
+  font-size: clamp(14px, 2.5vw, 18px); /* escala con pantalla */
+  line-height: 1.6;
+}
+
+/* 📱 Ajustes móviles */
+@media (max-width: 600px) {
+  .video-section .video-container {
+    max-width: 95%;
+  }
+  
+  .letter-section {
+    padding: 1rem;
+  }
+  
+  #chessboard {
+    max-width: 95vw;
+  }
+}
+/* ESTILOS PARA AJEDREZ RESPONSIVO Y CENTRADO */
+#chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    border: 3px solid gold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    aspect-ratio: 1 / 1;
+}
+
+.chess-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(16px, 4vw, 34px);
+    font-weight: bold;
+}
+
+.chess-square.white {
+    background-color: #f0d9b5;
+}
+
+.chess-square.black {
+    background-color: #b58863;
+}
+
+.chess-piece {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ESTILOS PARA CONTENEDORES DE FOTOS CENTRADOS */
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.birthday-photo {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    border: 2px solid #FFD700;
+    margin: 0 auto;
+    display: block;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVIDAD */
+@media (max-width: 768px) {
+    #chessboard {
+        max-width: 90vw;
+        margin: 15px auto;
+    }
+    
+    .chess-square {
+        font-size: clamp(14px, 3.5vw, 24px);
+    }
+    
+    .birthday-photo {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    #chessboard {
+        max-width: 95vw;
+    }
+    
+    .chess-square {
+        font-size: clamp(12px, 3vw, 18px);
+    }
+    
+    .birthday-photo {
+        max-width: 100%;
+    }
+}
+
+/* CENTRADO DE ELEMENTOS EN SECCIONES */
+.message-section, .video-section, .letter-section, .chess-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.message-section > *, .video-section > *, .letter-section > *, .chess-section > * {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* AJUSTES ESPECÍFICOS PARA TEXTO EN MÓVILES */
+@media (max-width: 600px) {
+    .letter-content {
+        text-align: left;
+        padding: 10px;
+    }
+    
+    .letter-content p {
+        text-align: justify;
+        hyphens: auto;
+    }
+}
+
+/* PREVENIR DESBORDAMIENTO EN ELEMENTOS DRAGGABLE */
+.chess-piece {
+    user-select: none;
+    -webkit-user-drag: none;
+    cursor: grab;
+}
+
+/* MEJORAS VISUALES PARA EL TABLERO EN MÓVILES */
+@media (hover: none) {
+    .chess-piece {
+        cursor: pointer;
+    }
+    
+    .chess-square:hover {
+        transform: none;
+    }
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #0a0a2a, #000080);
+    color: #ffffff;
+    text-align: center;
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+    width: 100%; /* Asegura que el body no se desborde */
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- ESTILOS GENERALES Y ANIMACIONES --- */
+#countdown-screen h1, #surprise-screen h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem); /* Tamaño de fuente responsivo */
+    margin-bottom: 2rem;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.5rem, 3vw, 2rem); /* Espacio responsivo */
+    margin: 2rem 0;
+}
+
+#countdown span:first-child {
+    font-size: clamp(2rem, 7vw, 3rem); /* Tamaño de fuente responsivo */
+    min-width: clamp(60px, 15vw, 80px); /* Ancho mínimo responsivo */
+    /* ...otras propiedades... */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- SECCIONES DE CONTENIDO (VIDEOS, CARTAS, FOTOS) --- */
+.message-section, .video-section, .letter-section, .chess-section {
+    background: rgba(0, 0, 128, 0.3);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 2rem auto;
+    width: 95%; /* Usa porcentaje para que se adapte al ancho de la pantalla */
+    max-width: 800px; /* Limita el ancho en pantallas grandes */
+    border: 1px solid #FFD700;
+    opacity: 0;
+    box-sizing: border-box; /* Asegura que el padding no cause desbordamiento */
+}
+
+.message-section h2, .video-section h2, .letter-section h2, .chess-section h2 {
+    color: #FFD700;
+    margin-bottom: 1rem;
+}
+
+.birthday-photo {
+    width: 100%;
+    max-width: 400px;
+    height: auto; /* Mantiene la proporción */
+    border-radius: 10px;
+    border: 2px solid #FFD700;
+}
+
+.letter-content {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #FFD700;
+    text-align: justify;
+    word-wrap: break-word; /* Rompe palabras largas para evitar desbordamiento */
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA VIDEOS --- */
+.video-section .video-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 3px solid #FFD700;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.video-section .video-container iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Mantiene la proporción 16:9 */
+    height: auto; /* Se ajusta automáticamente */
+    border: none;
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA AJEDREZ --- */
+#chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    border: 3px solid gold;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    aspect-ratio: 1 / 1;
+}
+
+.chess-square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(16px, 4vw, 34px); /* Tamaño de fuente responsivo */
+    font-weight: bold;
+}
+
+.chess-square.white {
+    background-color: #f0d9b5;
+}
+
+.chess-square.black {
+    background-color: #b58863;
 }

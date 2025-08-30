@@ -4,59 +4,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday / Joyeux Anniversaire!</title>
+    <title>¡Feliz Cumpleaños!</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
 
     <div class="container">
-        <!-- Pantalla inicial con el contador -->
         <div id="countdown-screen">
-            <h1>The surprise is coming / La surprise arrive!</h1>
+            <h1>¡La sorpresa está por llegar!</h1>
             <div id="countdown">
                 <div>
                     <span id="hours">00</span>
-                    <span>Hours / Heures</span>
+                    <span>Horas</span>
                 </div>
                 <div>
                     <span id="minutes">00</span>
-                    <span>Minutes</span>
+                    <span>Minutos</span>
                 </div>
                 <div>
                     <span id="seconds">00</span>
-                    <span>Seconds / Secondes</span>
+                    <span>Segundos</span>
                 </div>
             </div>
-            <p>Magic will start at 05:00 AM</p>
+            <p>La magia comenzará a las 05:00 AM</p>
         </div>
 
-        <!-- Pantalla de la explosión/sorpresa (oculta al principio) -->
         <div id="surprise-screen" class="hidden">
-            <h1>SURPRISE! HAPPY BIRTHDAY!<br>JOYEUX ANNIVERSAIRE! 🎉</h1>
-            <p class="property-notice">This is the official property of the birthday boy. 🏆<br>Ceci est la propriété
-                officielle du célébrant. </p>
+            <h1>¡SORPRESA! ¡FELIZ CUMPLEAÑOS! 🎉</h1>
+            <p class="property-notice">Esta es la propiedad oficial del cumpleañero. 🏆</p>
 
-            <!-- El iframe con el video de Drive -->
             <div class="video-container">
                 <iframe id="birthday-video" src="" frameborder="0" allow="autoplay; encrypted-media"
                     allowfullscreen></iframe>
             </div>
 
-            <!-- NUEVA SECCIÓN: Su Deporte Favorito -->
-            <div class="sports-section">
-                <h2>To the MVP of my life! 🏀⚽🎾</h2>
-                <p>Every day with you is a victory. I love you!<br>Chaque jour avec toi est une victoire. Je t'aime !
-                </p>
-                <!-- Puedes poner una imagen relacionada con su deporte favorito aquí -->
-                <!-- <img src="images/sports-image.jpg" alt="His favorite sport"> -->
+            <div class="message-section fade-in-up">
+                <h2>¡Feliz Cumpleaños!</h2>
+                <div class="photo-message">
+                    <img src="images/Feliz.jpg" alt="Foto de cumpleaños" class="birthday-photo">
+                    <p>En este día especial, queremos recordarte lo increíble que eres y lo mucho que significas para
+                        todos nosotros.</p>
+                </div>
             </div>
 
-            <button onclick="replay()">Watch again / Voir à nouveau</button>
+            <div class="video-section fade-in-up">
+                <h2>Mensaje especial de tu hermano</h2>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/ftxjdCZHERE" frameborder="0"
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="video-section fade-in-up">
+                <h2>¡Tus actividades favoritas!</h2>
+                <p>Este año estará lleno de aventuras y momentos increíbles haciendo lo que más te gusta.</p>
+                <div class="photo-message">
+                    <img src="images/diauno.jpg" alt="Foto de cumpleaños" class="birthday-photo">
+
+                </div>
+            </div>
+
+            <div class="letter-section fade-in-up">
+                <h2>Una carta especial para ti</h2>
+                <div class="letter-content">
+                    <p>✨💌
+                        Amor, feliz cumpleaños 🎂💜
+                        <br>
+                        Aunque este año no podamos celebrar juntitos porque estás de viaje, quiero que sepas que mi
+                        corazón festeja tu vida con todo el amor del mundo. Estos 9 meses contigo han sido un regalo
+                        inmenso, porque contigo todo es mutuo, lleno de paz, apoyo y una felicidad que me hace sentir en
+                        casa.
+                        <br>
+
+                        Amo cuando aceptas bailar conmigo y nos reímos de nuestras locuras, cuando me motivas a hacer
+                        deporte, a jugar básquet, a intentar nadar, y nuestras lecturas en común que adoro. Me encantan
+                        las horas cuando platicamos de nuestros pensamientos y me
+                        escuchas con tanta atención.
+                        <br>
+
+                        Este mes lo bauticé como “el mes de las anécdotas” 🤭 y, obviamente, la anécdota más divertida
+                        es la tuya… ¡sabes a cuál me refiero JAJAJAJJA Y MÁS JAJAJJA! 😆
+                        Y por supuesto, no puedo dejar de mencionar nuestro ajedrez: aunque casi el 90% de las partidas
+                        las he perdido, me quedo con la satisfacción de ese 10% jajaja, y sobre todo con el recuerdo de
+                        que me has enseñado con tanta paciencia y cariño.
+                        <br>
+                        Siento que somos un gran equipo, y quiero que sepas que no estás solo: tu familia te adora, y yo
+                        también. No tengas pena de decir nada, porque somos una pareja y estamos para apoyarnos en todo
+                        momento.
+                        <br>
+
+                        Admiro muchísimo tu inteligencia para mí eres una de las personas más inteligentes que conozco
+                        y me derriten esas mejillas que tanto adoro y ese lunar precioso que me encanta.
+                        <br>
+                        Eres único y maravilloso, amor. Te amo profundamente y mi mayor deseo es seguir compartiendo
+                        contigo todo: aprendizajes, risas, locuras y ese amor tan bonito que hemos construido.
+                        <br>
+                        Feliz cumpleaños, mi amor 💜✨ aunque hoy la distancia nos separe, mi alma está contigo
+                        celebrando.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chess-section fade-in-up">
+                <h2>¡Un juego de ajedrez para celebrar!</h2>
+                <div id="chessboard"></div>
+                <p>Es representasión JAJAJAJAJAJ PORQUE PROGRAMARLO ESTÁ BIEN DIFÍCIL JAJJAJA</p>
+            </div>
+
+            <button onclick="replay()">Ver de nuevo</button>
         </div>
     </div>
+    <canvas id="confetti-canvas"></canvas>
 
     <script src="script.js"></script>
+    <script>
+        function initializeChess() {
+            const chessboard = document.getElementById('chessboard');
+            chessboard.innerHTML = '';
+
+            const pieces = [
+                '♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜',
+                '♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '', '', '', '', '', '', '', '',
+                '♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙',
+                '♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖'
+            ];
+
+            for (let i = 0; i < 64; i++) {
+                const square = document.createElement('div');
+                square.className = `chess-square ${(Math.floor(i / 8) + i % 8) % 2 === 0 ? 'white' : 'black'}`;
+                square.dataset.index = i;
+
+                if (pieces[i]) {
+                    const piece = document.createElement('div');
+                    piece.className = 'chess-piece';
+                    piece.textContent = pieces[i];
+                    piece.draggable = true;
+
+                    piece.addEventListener("dragstart", (e) => {
+                        e.dataTransfer.setData("piece", piece.textContent);
+                        e.dataTransfer.setData("from", square.dataset.index);
+                        setTimeout(() => piece.style.display = "none", 0);
+                    });
+
+                    piece.addEventListener("dragend", () => {
+                        piece.style.display = "block";
+                    });
+
+                    square.appendChild(piece);
+                }
+
+                square.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                });
+
+                square.addEventListener("drop", (e) => {
+                    e.preventDefault();
+                    const pieceSymbol = e.dataTransfer.getData("piece");
+                    const fromIndex = e.dataTransfer.getData("from");
+
+                    if (pieceSymbol) {
+                        const fromSquare = chessboard.querySelector(`[data-index='${fromIndex}']`);
+                        fromSquare.innerHTML = "";
+
+                        square.innerHTML = "";
+                        const newPiece = document.createElement("div");
+                        newPiece.className = "chess-piece";
+                        newPiece.textContent = pieceSymbol;
+                        newPiece.draggable = true;
+
+                        newPiece.addEventListener("dragstart", (e) => {
+                            e.dataTransfer.setData("piece", newPiece.textContent);
+                            e.dataTransfer.setData("from", square.dataset.index);
+                            setTimeout(() => newPiece.style.display = "none", 0);
+                        });
+                        newPiece.addEventListener("dragend", () => {
+                            newPiece.style.display = "block";
+                        });
+
+                        square.appendChild(newPiece);
+                    }
+                });
+
+                chessboard.appendChild(square);
+            }
+        }
+    </script>
 </body>
 
 </html>

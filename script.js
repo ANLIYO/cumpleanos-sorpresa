@@ -1,7 +1,5 @@
-// CONFIGURA ESTA VARIABLE CON EL ID DE TU VIDEO DE GOOGLE DRIVE
-const videoId = "mx8J_rU02fE"; // Ejemplo: "1abcXYZ123def"
+const videoId = "k5YzN3sHsfw";
 
-// Elementos del DOM
 const countdownScreen = document.getElementById("countdown-screen");
 const surpriseScreen = document.getElementById("surprise-screen");
 const hoursElement = document.getElementById("hours");
@@ -9,66 +7,169 @@ const minutesElement = document.getElementById("minutes");
 const secondsElement = document.getElementById("seconds");
 const videoElement = document.getElementById("birthday-video");
 
-// La hora objetivo (5:00 AM de hoy)
-const targetTime = new Date();
-targetTime.setHours(19, 46, 0, 0); // Configura para las 5:00 AM
+const targetTime = new Date(2025, 7, 30, 5, 0, 0);
+const SURPRISE_ACTIVATED_KEY = "surpriseActivated";
 
-// Si ya son más de las 5 AM hoy, configura para las 5 AM del día siguiente
-if (new Date() > targetTime) {
-  targetTime.setDate(targetTime.getDate() + 1);
+let countdownInterval;
+
+function checkSurpriseStatus() {
+  const now = new Date();
+  const surpriseActivated = localStorage.getItem(SURPRISE_ACTIVATED_KEY);
+
+  if (now >= targetTime) {
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+    }
+
+    if (surpriseActivated === "true") {
+      showSurpriseDirectly();
+      return true;
+    }
+
+    triggerSurprise();
+    return true;
+  }
+
+  return false;
 }
 
-// Función principal para actualizar la cuenta regresiva
 function updateCountdown() {
+  if (checkSurpriseStatus()) return;
+
   const now = new Date();
   const timeDifference = targetTime - now;
 
-  // Si el tiempo se acaba...
   if (timeDifference <= 0) {
-    // Detener el intervalo
     clearInterval(countdownInterval);
-    // ¡Ejecutar la explosión y revelar la sorpresa!
     triggerSurprise();
     return;
   }
 
-  // Calcular horas, minutos y segundos restantes
   const totalSeconds = Math.floor(timeDifference / 1000);
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
 
-  // Actualizar el HTML con los valores formateados (00, 01, 02...)
   hoursElement.textContent = hours.toString().padStart(2, "0");
   minutesElement.textContent = minutes.toString().padStart(2, "0");
   secondsElement.textContent = seconds.toString().padStart(2, "0");
 }
 
-// Función para la animación de "explosión" y revelación
 function triggerSurprise() {
-  // 1. Añadir la clase de animación "explode" al contador
+  localStorage.setItem(SURPRISE_ACTIVATED_KEY, "true");
+
+  createExplosion();
+
   countdownScreen.classList.add("explode");
 
-  // 2. Después de que termine la animación de explosión, ocultar el contador y revelar la sorpresa
   setTimeout(() => {
     countdownScreen.classList.add("hidden");
 
-    // Configurar la URL del video de Drive para que se reproduzca automáticamente
-    // &autoplay=1 es el parámetro clave aquí
-    videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+    videoElement.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
 
-    // Mostrar y animar la revelación de la pantalla de sorpresa
-    surpriseScreen.classList.remove("hidden");
-    surpriseScreen.classList.add("reveal");
-  }, 800); // Este tiempo debe coincidir con la duración de la animación "explode" (0.8s)
+    videoElement.onload = function () {
+      setTimeout(() => {
+        videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1`;
+
+        revealSurpriseScreen();
+      }, 300);
+    };
+  }, 800);
+}
+function createExplosion() {
+  const explosion = document.createElement("div");
+  explosion.style.position = "fixed";
+  explosion.style.left = "50%";
+  explosion.style.top = "50%";
+  explosion.style.transform = "translate(-50%, -50%)";
+  explosion.style.pointerEvents = "none";
+  explosion.style.zIndex = "9999";
+  document.body.appendChild(explosion);
+
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement("div");
+    particle.className = "explosion-piece";
+
+    const colors = ["#FFD700", "#000080", "#e94560", "#ffffff"];
+    particle.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
+
+    const angle = Math.random() * Math.PI * 2;
+    particle.style.setProperty("--tx", Math.cos(angle) * 3);
+    particle.style.setProperty("--ty", Math.sin(angle) * 3);
+
+    const size = 8 + Math.random() * 15;
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    explosion.appendChild(particle);
+  }
+
+  setTimeout(() => {
+    explosion.remove();
+  }, 2000);
 }
 
-// Función para reiniciar la experiencia (por si quiere volver a verla)
+function revealSurpriseScreen() {
+  surpriseScreen.classList.remove("hidden");
+
+  const title = surpriseScreen.querySelector("h1");
+  const notice = surpriseScreen.querySelector(".property-notice");
+  const videoContainer = surpriseScreen.querySelector(".video-container");
+  const sportsSection = surpriseScreen.querySelector(".sports-section");
+  const button = surpriseScreen.querySelector("button");
+
+  setTimeout(() => {
+    title.classList.add("exploding-text");
+    title.style.opacity = "1";
+  }, 200);
+
+  setTimeout(() => {
+    notice.classList.add("fade-in-up");
+    notice.style.opacity = "1";
+  }, 800);
+
+  setTimeout(() => {
+    videoContainer.classList.add("fade-in-up");
+    videoContainer.style.opacity = "1";
+  }, 1200);
+
+  setTimeout(() => {
+    sportsSection.classList.add("fade-in-up", "floating-element");
+    sportsSection.style.opacity = "1";
+  }, 1600);
+
+  setTimeout(() => {
+    button.classList.add("fade-in-up", "shimmer-effect");
+    button.style.opacity = "1";
+
+    initializeChess();
+    launchConfetti();
+  }, 2000);
+}
+
+function showSurpriseDirectly() {
+  countdownScreen.classList.add("hidden");
+  videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+  revealSurpriseScreen();
+  initializeChess();
+}
+
+// function showSurpriseDirectly() {
+//   countdownScreen.classList.add("hidden");
+//   videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+//   surpriseScreen.classList.remove("hidden");
+//   initializeChess();
+// }
+
 function replay() {
-  // Recargar la página para reiniciar el contador (solución simple)
+  localStorage.removeItem(SURPRISE_ACTIVATED_KEY);
   location.reload();
 }
 
-// Iniciar la cuenta regresiva inmediatamente y actualizarla cada segundo
-updateCountdown(); // Llamada inicial para evitar un retraso de 1 segundo
-const countdownInterval = setInterval(updateCountdown, 1000);
+if (checkSurpriseStatus()) {
+  showSurpriseDirectly();
+} else {
+  updateCountdown();
+  countdownInterval = setInterval(updateCountdown, 1000);
+}
