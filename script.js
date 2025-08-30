@@ -7,7 +7,7 @@ const minutesElement = document.getElementById("minutes");
 const secondsElement = document.getElementById("seconds");
 const videoElement = document.getElementById("birthday-video");
 
-const targetTime = new Date(2025, 7, 30, 2, 1, 0);
+const targetTime = new Date(2025, 7, 30, 2, 5, 0);
 const SURPRISE_ACTIVATED_KEY = "surpriseActivated";
 
 let countdownInterval;
@@ -65,17 +65,12 @@ function triggerSurprise() {
   setTimeout(() => {
     countdownScreen.classList.add("hidden");
 
-    videoElement.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`;
+    videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1`;
 
-    videoElement.onload = function () {
-      setTimeout(() => {
-        videoElement.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0&modestbranding=1`;
-
-        revealSurpriseScreen();
-      }, 300);
-    };
+    revealSurpriseScreen();
   }, 800);
 }
+
 function createExplosion() {
   const explosion = document.createElement("div");
   explosion.style.position = "fixed";
