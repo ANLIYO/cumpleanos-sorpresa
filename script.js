@@ -12,7 +12,7 @@ const surpriseMessageModal = document.getElementById("surprise-message-modal");
 const surpriseMessageElement = document.getElementById("surprise-message");
 const closeButton = document.querySelector(".close-button");
 
-const targetTime = new Date(2025, 7, 30, 3, 25, 0);
+const targetTime = new Date(2025, 7, 30, 8, 30, 0);
 const SURPRISE_ACTIVATED_KEY = "surpriseActivated";
 let countdownInterval;
 const surprisePhrases = [
