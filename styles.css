@@ -855,3 +855,141 @@ body {
         font-size: 0.9rem;
     }
 }
+.surprise-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  padding: 15px 30px;
+  border-radius: 10px;
+  font-size: 2em;
+  font-weight: bold;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, transform 0.5s ease;
+  z-index: 100;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.surprise-message.show-message {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.message-modal {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.message-modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.message-content {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 15px;
+    text-align: center;
+    position: relative;
+    max-width: 80%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+}
+
+.message-modal.visible .message-content {
+    transform: scale(1);
+}
+
+#surprise-message {
+    font-size: 2em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: #555;
+}
+
+/* Ocultar la sección del ajedrez por defecto */
+.chess-section.hidden {
+    display: none;
+}
+/* Estilos para la sección de ajedrez */
+.chess-section {
+  text-align: center;
+  margin-top: 2em;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+#myBoard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  width: 80vw; /* Cambiamos a una medida relativa */
+  max-width: 500px; /* Evita que crezca demasiado en pantallas grandes */
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  border: 4px solid #333;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos de las casillas */
+.chess-square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5em; /* Tamaño de las piezas */
+}
+
+.chess-square.white {
+  background-color: #f0d9b5;
+}
+
+.chess-square.black {
+  background-color: #b58863;
+}
+
+/* Estilos de las piezas */
+.chess-piece {
+  cursor: grab;
+  color: #333;
+}
+
+.chess-piece[draggable="true"] {
+  cursor: grab;
+}
+
+.chess-piece:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
